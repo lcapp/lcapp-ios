@@ -1,0 +1,21 @@
+{
+  "name": "livecounts",
+  "description": "Livecounts: live subscriber count",
+  "main": "",
+  "license": "MIT",
+  "homepage": "livecounts.net",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "www/lib",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "ionic-platform-web-client": "^0.7.1"
+  },
+  "authors": [
+    "Livecounts <livecountssite@gmail.com>"
+  ]
+}

@@ -1,0 +1,11 @@
+<ion-view style="" class=" " id="favorites" title="Favorites">
+    <ion-content class="has-header" padding="true">
+        <ion-list class=" " id="favorites-list1">
+            <ion-item ng-repeat="fav in favs" class="item item-remove-animate item-thumbnail-left" ng-click="goToChannel(fav)">
+                <img ng-src="{{ fav.thumbnail }}">
+                {{ fav.channelTitle }}
+                <ion-option-button class="button-assertive icon ion-trash-a" ng-click="deleteFav(fav)"></ion-option-button>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>

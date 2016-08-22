@@ -1,0 +1,18 @@
+<style>
+
+</style>
+<ion-view style="background-color: rgb(208, 228, 254);" id="page2" title="Livecounts">
+    <ion-nav-buttons side="right">
+        <button class="button button-icon ion-star" ng-click="newFav(currChannel)"></button>
+    </ion-nav-buttons>
+    <ion-content class="has-header text-center" padding="true" scroll="false">
+        <div id="container">
+            <div class="row">
+                <div class="col">
+                    <button class="button button-clear button-dark" id="channelName" ng-bind="currChannel.channelTitle" ng-click="changeChannel()"></button>
+                    <div odometer="subCount" id="channelSubs" ng-bind="subs"></div>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

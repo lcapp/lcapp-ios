@@ -1,0 +1,14 @@
+<ion-view style="" class=" " id="search" title="Search">
+    <ion-content class="has-header" padding="true">
+        <div class="item item-input">
+            <i class="icon ion-search placeholder-icon"></i>
+            <input type="text" ng-model="query" ng-enter="search(query)" placeholder="Enter channel name here">
+        </div>
+        <ion-list class=" " id="search-list1">
+            <ion-item class="item item-thumbnail-left" ng-repeat="result in results" ng-click="goToChannel(result.snippet)">
+                <img ng-src="{{ result.snippet.thumbnails.default.url }}">
+                {{ result.snippet.channelTitle }}
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>

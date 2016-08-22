@@ -1,0 +1,12 @@
+{
+  "name": "Livecounts",
+  "app_id": "61724138",
+  "gulpStartupTasks": [
+    "sass",
+    "watch"
+  ],
+  "watchPatterns": [
+    "www/**/*",
+    "!www/lib/**/*"
+  ]
+}
