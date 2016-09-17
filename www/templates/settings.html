@@ -1,10 +1,29 @@
-<ion-view style="" class=" " id="page3" title="Settings">
+<style>
+.item-divider-dark {
+    color: #fff;
+    background-color: #777 !important;
+    border-color: #111;
+}
+</style>
+<ion-view ng-style="settings.nightMode && { 'background-color': '#333' }" class=" " id="page3" title="Settings">
     <ion-content class="has-header" padding="true">
-        <ion-list class=" " id="settings-list1">
-            <ion-toggle class=" " id="settings-toggle1" toggle-class="toggle-positive">Night mode</ion-toggle>
-            <ion-toggle class=" " id="settings-toggle2" toggle-class="toggle-positive">Sound</ion-toggle>
+        <ion-list class="item-text-wrap" id="settings-list1">
+            <ion-item class="item-divider" ng-class="{ 'item-divider-dark': settings.nightMode }">General</ion-item>
+            <ion-toggle ng-class="{ 'item-dark': settings.nightMode }" id="settings-toggle1" ng-model="settings.nightMode" ng-change="saveSettings()">Night mode</ion-toggle>
+            <br>
+            <ion-item class="item-divider" ng-class="{ 'item-divider-dark': settings.nightMode }">Livecounts</ion-item>
+            <ion-toggle ng-class="{ 'item-dark': settings.nightMode }" id="settings-toggle2" ng-model="settings.sound" ng-change="saveSettings()">Play sound when subscriber count changes (experimental)</ion-toggle>
+            <ion-toggle ng-class="{ 'item-dark': settings.nightMode }" id="settings-toggle5" ng-model="settings.transition" ng-change="saveSettings()">Transition subscriber count</ion-toggle>
+            <ion-toggle ng-class="{ 'item-dark': settings.nightMode }" id="settings-toggle8" ng-model="settings.livecountsIcon" ng-change="saveSettings()">Show channel thumbnail (portrait mode only)</ion-toggle>
+            <ion-toggle ng-class="{ 'item-dark': settings.nightMode }" id="settings-toggle6" ng-model="settings.viewButton" ng-change="saveSettings()">Show "View on YouTube" button</ion-toggle>
+            <ion-toggle ng-class="{ 'item-dark': settings.nightMode }" id="settings-toggle3" ng-model="settings.screenshot" ng-change="saveSettings()">Take screenshot when sharing to Twitter</ion-toggle>
+            <!--div ng-style="settings.nightMode && { 'color': '#fff' }">Note: sound may be buggy</div-->
+            <br>
+            <ion-item class="item-divider" ng-class="{ 'item-divider-dark': settings.nightMode }">Favorites</ion-item>
+            <ion-toggle ng-class="{ 'item-dark': settings.nightMode }" id="settings-toggle4" ng-model="settings.favIcons" ng-change="saveSettings()">Show icons for favorites</ion-toggle>
+            <br>
+            <ion-item class="item-divider" ng-class="{ 'item-divider-dark': settings.nightMode }">Notifications</ion-item>
+            <ion-toggle ng-class="{ 'item-dark': settings.nightMode }" id="settings-toggle7" ng-model="settings.notifIcons" ng-change="saveSettings()">Show icons for notifications</ion-toggle>
         </ion-list>
-        <br>
-        <div>Note: these don't work yet</div>
     </ion-content>
 </ion-view>

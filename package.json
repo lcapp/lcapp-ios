@@ -1,6 +1,6 @@
 {
   "name": "livecounts",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "description": "Livecounts: live subscriber count",
   "dependencies": {
     "angular-odometer-js": "^0.1.1",

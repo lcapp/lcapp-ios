@@ -1,0 +1,22 @@
+<ion-modal-view ng-style="settings.nightMode && { 'background-color': '#333' }" class=" " id="search" title="Search">
+    <ion-header-bar class="bar bar-header bar-positive" ng-class="{ 'bar-dark': settings.nightMode }">
+        <h1 class="title">Search</h1>
+        <button class="button button-clear button-primary" ng-click="modal.hide()">Cancel</button>
+    </ion-header-bar>
+    <ion-content class="padding">
+        <div class="item item-input" ng-style="settings.nightMode && { 'background-color': '#444', 'border-color': '#111' }">
+            <i class="icon ion-search placeholder-icon"></i>
+            <input type="text" id="queryText" ng-style="settings.nightMode && { 'color': '#fff' }" ng-model="searchData.query" ng-enter="search(searchData.query)" placeholder="Enter channel name, ID, or URL">
+        </div>
+        <ion-list class=" " id="search-list1">
+            <ion-item class="item item-thumbnail-left" ng-class="{ 'item-dark': settings.nightMode }" ng-repeat="result in searchData.results" ng-click="modal.hide();goToChannel(result.snippet)">
+                <img ng-src="{{ result.snippet.thumbnails.default.url }}">
+                <b>{{ result.snippet.channelTitle }}</b>
+				<br>
+				<ng-pluralize count="result.subscriberCount" when="{'1': '1 subscriber',
+					'other': '{{ result.subscriberCount | number}} subscribers'}"
+				</ng-pluralize>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-modal-view>

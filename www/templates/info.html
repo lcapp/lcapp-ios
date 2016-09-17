@@ -1,9 +1,25 @@
-<ion-view style="background-color: rgb(208, 228, 254);" id="page4" title="Info">
-    <ion-content class="has-header" padding="true">
-        <h1 class="text-center">Livecounts v0.3-alpha</h1>
-        <h5 class="text-center">by @ColleensCuber</h5>
+<style>
+#featureList li {
+    list-style-type: disc;
+    text-align: left;
+}
+</style>
+<ion-view ng-style="settings.nightMode && { 'background-color': '#34393f' } || { 'background-color': '#d0e4fe' }" id="page4" title="Info">
+    <ion-content class="has-header" padding="true" ng-style="settings.nightMode && { 'color': '#fff' }">
+        <h1 class="text-center" ng-style="settings.nightMode && { 'color': '#fff' }">Livecounts v0.31.10-alpha</h1>
+        <h5 class="text-center" ng-style="settings.nightMode && { 'color': '#fff' }">by @ColleensCuber</h5>
         <br>
-        <h2>About</h2>
-        <div>This app tells you how many subscribers YouTubers have in real time. The count updates every 2 seconds. Have fun experimenting!</div>
+        <h2 ng-style="settings.nightMode && { 'color': '#fff' }">About</h2>
+        <p>This app tells you how many subscribers YouTubers have in real time.</p>
+        <p>As you can probably tell, this app is a work in progress. Some features might break. Let me know if you find bugs or if you've got suggestions for improvements or feature requests. Have fun experimenting :)</p>
+        <h2 ng-style="settings.nightMode && { 'color': '#fff' }">Features</h2>
+        <p><b>Live subscriber count</b>: The most important feature of this app. The count updates every 2 seconds.</p>
+        <p><b>Share to Twitter</b>: Share any YouTuber's live subscriber count to Twitter.</p>
+        <p><b>Search</b>: Easily search for any YouTube channel. For very small channels, you may have to enter their URLs or channel IDs instead of their names.</p>
+        <p><b>Favorites</b>: Save your favorite channels so that you don't have to search for them every time you open the app.</p>
+        <p><b>Notifications</b>: Receive push notifications when your favorite YouTuber approaches or reaches a milestone.</p>
+        <h2 ng-style="settings.nightMode && { 'color': '#fff' }">Contact me</h2>
+        <div>Twitter (much preferred): <a href="#" ng-click="openLCTwitter()">@LivecountsSite</a></div>
+        <div>Email: <a href="#" ng-click="emailToLC()">livecountssite@gmail.com</a></div>
     </ion-content>
 </ion-view>

@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<widget id="com.ionicframework.livecounts606751" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="net.livecounts" version="0.31.10-alpha" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
   <name>Livecounts</name>
   <description>
         Real-time subscriber counter.
     </description>
   <author email="livecountssite@gmail.com" href="https://livecounts.net">
-      Livecounts
+      ColleensCuber
     </author>
   <content src="index.html"/>
   <access origin="*"/>
+  <preference name="KeyboardDisplayRequiresUserAction" value="false"/>
   <preference name="webviewbounce" value="false"/>
   <preference name="UIWebViewBounce" value="false"/>
   <preference name="DisallowOverscroll" value="true"/>

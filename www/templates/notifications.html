@@ -1,0 +1,91 @@
+<style>
+/*.item-reorder .reorder-custom, .button.icon .reorder-custom {
+    color: #fff !important;
+}
+.item-button-right, a.item.item-button-right, button.item.item-button-right {
+    padding-right: 0px !important;
+}
+.favButtons {
+    bottom: 8px;
+    right: 8px !important;
+}
+.custom-icon {
+    font-size: 24px !important;
+}
+.custom-icon.updating, .custom-icon.updating:hover {
+    color: #387ef5;
+}
+.custom-icon-light, .custom-icon-light:hover {
+    color: #fff;
+}
+div.scroll.padding {
+    height: 100%;
+}
+.favContainer {
+    position: absolute;
+    top: 40%;
+    transform: translateY(-50%);
+    margin: 10px;
+    left: 0px;
+    right: 0px;
+    text-align: center;
+}
+.favContainer > * {
+    color: #888;
+}*/
+
+div.scroll.padding {
+    height: 100%;
+}
+.notifContainer {
+    position: absolute;
+    top: 40%;
+    transform: translateY(-50%);
+    margin: 10px;
+    left: 0px;
+    right: 0px;
+    text-align: center;
+}
+.notifContainer > * {
+    color: #888;
+}
+.item-complex.item-unread > .item-content {
+    background-color: #cddffc !important;
+}
+.item-complex.item-dark.item-unread > .item-content {
+    background-color: #1b2c4a !important;
+}
+.custom-rounded {
+    border-radius: 17.5%;
+}
+</style>
+<ion-view ng-style="settings.nightMode && { 'background-color': '#333' }" class=" " id="notifications" title="Notifications">
+	<!--ion-nav-buttons side="right">
+		<button class="button button-clear button-positive" ng-click="data.toggle = !data.toggle">
+			<span ng-hide="data.toggle">Edit</span><span ng-show="data.toggle">Done</span>
+		</button>
+	</ion-nav-buttons-->
+    <ion-content class="has-header" padding="true">
+        <ion-list class=" " id="notifications-list1" show-delete="data.toggle">
+            <ion-item ng-repeat="notif in inAppNotifs | orderBy:'-'" class="item item-remove-animate" ng-class="{ 'item-dark': settings.nightMode, 'item-thumbnail-left': settings.notifIcons, 'item-unread': !notif.read }" ng-click="readNotif(notif)">
+                <img ng-src="{{ notif.channel.thumbnail }}" class="custom-rounded" ng-if="settings.notifIcons">
+                <b>{{ notif.channel.channelTitle }}</b>
+				<br>
+                <!--div class="buttons favButtons">
+                    <button class="button button-icon custom-icon ion-play" ng-class="{ 'updating': fav.update, 'custom-icon-light': settings.nightMode }" ng-click="$event.stopPropagation(); toggleUpdateFav(fav)"></button>
+                </div-->
+                {{ notif.message }}
+				<!--ng-pluralize count="fav.subscriberCount" when="{'1': '1 subscriber',
+					'other': '{{ fav.subscriberCount | number}} subscribers'}"
+				</ng-pluralize-->
+                <!--ion-delete-button class="ion-minus-circled" ng-click="deleteFav(fav)"></ion-delete-button>
+                <ion-option-button class="button-positive icon ion-ios-bell" ng-click="showNotifModal(fav)"></ion-option-button-->
+                <ion-option-button class="button-assertive icon ion-trash-a" ng-click="deleteNotif(notif)"></ion-option-button>
+                <!--ion-reorder-button class="ion-navicon" ng-class="{ 'reorder-custom': settings.nightMode }" on-reorder="moveFav(fav, $fromIndex, $toIndex)"></ion-reorder-button-->
+            </ion-item>
+        </ion-list>
+        <div class=notifContainer ng-hide="inAppNotifs.length">
+            <h1>No Notifications</h1>
+        </div>
+    </ion-content>
+</ion-view>

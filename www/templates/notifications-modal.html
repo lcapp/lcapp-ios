@@ -1,0 +1,36 @@
+<ion-modal-view ng-style="settings.nightMode && { 'background-color': '#333' }">
+        <ion-header-bar class="bar bar-header bar-positive" ng-class="{ 'bar-dark': settings.nightMode }">
+          <h1 class="title">Notifications</h1>
+          <button class="button button-clear button-primary" ng-click="modal.remove()">Cancel</button>
+        </ion-header-bar>
+        <ion-content class="padding">
+          <!--div class="list">
+            <label class="item item-input">
+              <span class="input-label">First Name</span>
+              <input ng-model="newUser.firstName" type="text">
+            </label>
+            <label class="item item-input">
+              <span class="input-label">Last Name</span>
+              <input ng-model="newUser.lastName" type="text">
+            </label>
+            <label class="item item-input">
+              <span class="input-label">Email</span>
+              <input ng-model="newUser.email" type="text">
+            </label>
+            <button class="button button-full button-positive" ng-click="createContact(newUser)">Create</button>
+          </div-->
+          <ion-list>
+            <ion-toggle class="item-text-wrap" ng-model="notifData.notifyClose" ng-class="{ 'item-dark': settings.nightMode }" ng-change="notifData.notifyClose && (notifData.notify ? focusSubsAway() : focusMilestone())">Notify me when {{ currFav.channelTitle }} approaches a milestone</ion-toggle>
+            <ion-toggle class="item-text-wrap" ng-model="notifData.notify" ng-class="{ 'item-dark': settings.nightMode }" ng-change="notifData.notify && focusMilestone()">Notify me when {{ currFav.channelTitle }} reaches a milestone</ion-toggle>
+            <ion-item class="item item-input item-stacked-label item-remove-animate" ng-show="notifData.notify || notifData.notifyClose" ng-class="{ 'item-dark': settings.nightMode }">
+              <span class="input-label" ng-style="settings.nightMode && { 'color': '#fff' }">Milestone:</span>
+              <input type="number" id="milestoneText" ng-model="notifData.milestone" ng-style="settings.nightMode && { 'color': '#fff', 'background-color': '#444' }">
+            </ion-item>
+            <ion-item class="item item-input item-stacked-label item-remove-animate" ng-show="notifData.notifyClose" ng-class="{ 'item-dark': settings.nightMode }">
+              <span class="input-label" ng-style="settings.nightMode && { 'color': '#fff' }">Subscribers away from milestone:</span>
+              <input type="number" id="subsAwayText" ng-model="notifData.subsAway" ng-style="settings.nightMode && { 'color': '#fff', 'background-color': '#444' }">
+            </ion-item>
+            <button class="button button-full button-positive" ng-style="settings.nightMode && { 'background-color': '#1c3f7b' }" ng-click="saveNotifSetting(currFav, notifData)">Save</button>
+          <ion-list>
+        </ion-content>
+      </ion-modal-view>

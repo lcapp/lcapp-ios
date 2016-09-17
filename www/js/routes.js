@@ -50,7 +50,17 @@ angular.module('app.routes', [])
     }
   })
 
-  .state('tabsController.search', {
+  .state('tabsController.notifications', {
+    url: '/notifications',
+    views: {
+      'tab6': {
+        templateUrl: 'templates/notifications.html',
+        controller: 'notificationsCtrl'
+      }
+    }
+  })
+
+  /*.state('tabsController.search', {
     url: '/search',
     views: {
       'tab6': {
@@ -58,7 +68,7 @@ angular.module('app.routes', [])
         controller: 'searchCtrl'
       }
     }
-  })
+  })*/
 
   .state('tabsController', {
     url: '/page1',

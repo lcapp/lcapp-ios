@@ -1,13 +1,17 @@
-<ion-view style="" class=" " id="search" title="Search">
+<ion-view ng-style="settings.nightMode && { 'background-color': '#333' }" class=" " id="search" title="Search">
     <ion-content class="has-header" padding="true">
-        <div class="item item-input">
+        <div class="item item-input" ng-style="settings.nightMode && { 'background-color': '#444', 'border-color': '#111' }">
             <i class="icon ion-search placeholder-icon"></i>
-            <input type="text" ng-model="query" ng-enter="search(query)" placeholder="Enter channel name here">
+            <input type="text" ng-style="settings.nightMode && { 'color': '#fff' }" ng-model="query" ng-enter="search(query)" ng-init="focus()" placeholder="Enter channel name here">
         </div>
         <ion-list class=" " id="search-list1">
-            <ion-item class="item item-thumbnail-left" ng-repeat="result in results" ng-click="goToChannel(result.snippet)">
+            <ion-item class="item item-thumbnail-left" ng-class="{ 'item-dark': settings.nightMode }" ng-repeat="result in results" ng-click="goToChannel(result.snippet)">
                 <img ng-src="{{ result.snippet.thumbnails.default.url }}">
-                {{ result.snippet.channelTitle }}
+                <b>{{ result.snippet.channelTitle }}</b>
+				<br>
+				<ng-pluralize count="result.subscriberCount" when="{'1': '1 subscriber',
+					'other': '{{ result.subscriberCount | number}} subscribers'}"
+				</ng-pluralize>
             </ion-item>
         </ion-list>
     </ion-content>

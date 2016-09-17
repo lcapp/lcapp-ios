@@ -6,6 +6,7 @@
     "watch"
   ],
   "watchPatterns": [
+    "scss/**/*",
     "www/**/*",
     "!www/lib/**/*"
   ]

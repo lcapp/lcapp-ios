@@ -1,18 +1,79 @@
 <style>
-
+#thumbnail {
+    height: 88px;
+    width: 88px;
+    margin-bottom: 2vw;
+    border-radius: 17.5%;
+    border: 1px solid #387ef5;
+}
+#viewButton {
+    min-height: 0px;
+    line-height: 30px;
+}
+#channelName {
+    margin-top: 2vw;
+}
+#channelSubs {
+    line-height: 1.1em;
+}
+@media screen and (orientation: portrait) and (max-height: 840px) {
+    .container {
+        height: 50% !important;
+    }
+    #thumbnail {
+        height: 66px;
+        width: 66px;
+    }
+    #channelName, #description {
+        font-size: 4vw !important;
+    }
+    .title.title-center.header-item {
+        left: 100px !important;
+        right: 100px !important;
+    }
+    .nav-button, .nav-button:before {
+        font-size: 28px !important;
+    }
+}
+@media screen and (orientation: landscape) {
+    .container {
+        height: 60% !important;
+    }
+    #thumbnail {
+        display: none;
+    }
+    #description {
+        margin-top: 0px !important;
+    }
+}
+@media screen and (orientation: landscape) and (max-height: 500px) {
+    .container {
+        height: 75% !important;
+    }
+    #viewButton, #description {
+        display: none;
+    }
+}
 </style>
-<ion-view style="background-color: rgb(208, 228, 254);" id="page2" title="Livecounts">
-    <ion-nav-buttons side="right">
-        <button class="button button-icon ion-star" ng-click="newFav(currChannel)"></button>
+<ion-view ng-style="settings.nightMode && { 'background-color': '#34393f' } || { 'background-color': '#d0e4fe' }" id="page2" title="Livecounts">
+    <ion-nav-buttons side="primary">
+        <button class="button button-icon ion-arrow-expand nav-button" ng-click="showBars(false)"></button>
+        <button class="button button-icon ion-search nav-button" ng-click="showSearchModal()"></button>
+	</ion-nav-buttons>
+	<ion-nav-buttons side="secondary">
+		<button class="button button-icon ion-social-twitter nav-button" ng-click="share(currChannel)"></button>
+        <button class="button button-icon ion-star nav-button" ng-click="newFav(currChannel)"></button>
     </ion-nav-buttons>
-    <ion-content class="has-header text-center" padding="true" scroll="false">
-        <div id="container">
-            <div class="row">
-                <div class="col">
-                    <button class="button button-clear button-dark" id="channelName" ng-bind="currChannel.channelTitle" ng-click="changeChannel()"></button>
-                    <div odometer="subCount" id="channelSubs" ng-bind="subs"></div>
-                </div>
+    <ion-content class="has-header text-center" padding="true" scroll="false" ng-click="showBars(true)">
+        <div class="container">
+            <div class="mainData">
+                <img id="thumbnail" ng-src="{{ currChannel.thumbnail }}" ng-if="settings.livecountsIcon">
+                <div><button id="viewButton" class="button button-positive" ng-show="settings.viewButton" ng-click="openChannel(currChannel.channelId)">View on YouTube</button></div>
+                <button class="button button-clear button-dark" ng-style="settings.nightMode && { 'color': '#fff' }" id="channelName" ng-bind="currChannel.channelTitle" ng-click="changeChannel()"></button>
+                <div ng-if="settings.transition" odometer="subCount" id="channelSubs" ng-style="settings.nightMode && { 'color': '#fff' }" ng-bind="subs"></div>
+                <div ng-if="!settings.transition" id="channelSubs" ng-style="settings.nightMode && { 'color': '#fff' }">{{ subs | number }}</div>
             </div>
         </div>
+        <div id="description" ng-style="settings.nightMode && { 'color': '#fff' }" ng-bind="currChannel.descText"></div>
     </ion-content>
 </ion-view>

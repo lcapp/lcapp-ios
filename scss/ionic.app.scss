@@ -17,23 +17,33 @@ $dark:                            #444 !default;
 
 // The path for our ionicons font files, relative to the built CSS in www/css
 $ionicons-font-path: "../lib/ionic/fonts" !default;
+$font-family-sans-serif: -apple-system, sans-serif !default;
 
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
 
 #page2 {
   .scroll-content {
-    display: table !important;
+    //display: table !important;
     width: 100% !important;
-    height: 80% !important;
+    //height: 55%;
 
-    #container {
-      display: table-cell;
-      vertical-align: middle;
+    .container {
+      //display: table-cell;
+      //vertical-align: bottom;
+      position: relative;
+      height: 55%;
+    }
+    
+    .mainData {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
     }
     
     #channelName {
-        font-family: Arial, sans-serif;
+        //font-family: Arial, sans-serif;
         font-size: 3vw;
         color: #000;
     }
@@ -42,6 +52,13 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
         display: block;
         font-family: Avenir, sans-serif;
         font-size: 15.5vw;
+    }
+    
+    #description {
+        font-size: 3vw;
+        color: #00f;
+        margin: 50px 20px 0px;
+        line-height: 1.2em;
     }
   }
   .odometer.odometer-auto-theme, .odometer.odometer-theme-minimal {
