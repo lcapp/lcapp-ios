@@ -53,7 +53,7 @@ div.scroll.padding {
                 <b>{{ fav.channelTitle }}</b>
 				<br>
                 <div class="buttons favButtons" ng-class="{ 'favButtons-shifted' : settings.favIcons }">
-                    <button class="button button-icon custom-icon ion-ios-bell" ng-class="{ 'updating': notifs[fav.channelId].notify || notifs[fav.channelId].notifyClose, 'custom-icon-light': settings.nightMode }" ng-click="$event.stopPropagation(); showNotifModal(fav)"></button>
+                    <!--button class="button button-icon custom-icon ion-ios-bell" ng-class="{ 'updating': notifs[fav.channelId].notify || notifs[fav.channelId].notifyClose, 'custom-icon-light': settings.nightMode }" ng-click="$event.stopPropagation(); showNotifModal(fav)"></button-->
                     <button class="button button-icon custom-icon ion-play" ng-class="{ 'updating': fav.update, 'custom-icon-light': settings.nightMode }" ng-click="$event.stopPropagation(); toggleUpdateFav(fav)"></button>
                 </div>
 				<ng-pluralize count="fav.subscriberCount" when="{'1': '1 subscriber',
