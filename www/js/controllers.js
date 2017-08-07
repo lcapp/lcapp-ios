@@ -629,14 +629,7 @@ function ($scope, $stateParams, $http, $ionicPopup, $rootScope, $ionicLoading, $
     // get featured YouTuber
     function getFeatured() {
         return new Promise(function(resolve, reject) {
-            var date = new Date();
-            var url = "https://livecounts.net/featured/" + (date.getUTCMonth() + 1) + "-" + date.getUTCDate() + "-" + date.getUTCFullYear() % 100;
-            //console.log(url);
-            $http({
-                method: "GET",
-                url: url + ".txt"
-            }).then(function(response) {
-                //console.log(response);
+            getFeaturedFile().then(function(response) {
                 var t = response.data;
                 var e = t.indexOf("\n");
                 var id = t.slice(0, 24);
@@ -647,32 +640,46 @@ function ($scope, $stateParams, $http, $ionicPopup, $rootScope, $ionicLoading, $
                 }).catch(function(err) {
                     reject(err);
                 });
+            }).catch(function(err) {
+                reject(err);
+            });
+        });
+    }
+    
+    // get file containing featured YouTuber
+    function getFeaturedFile() {
+        return new Promise(function(resolve, reject) {
+            //console.log("searching");
+            var date = new Date();
+            var currHour = date.getUTCHours() + 1;
+            var url = "https://livecounts.net/featured/" + (date.getUTCMonth() + 1) + "-" + date.getUTCDate() + "-" + date.getUTCFullYear() % 100;
+            $http({
+                method: "GET",
+                url: url + ".txt"
+            }).then(function(response) {
+                // found it
+                //console.log("found");
+                resolve(response);
             }, function(response) {
-                // maybe it's a mini-contest day
-                var hour;
-                if (date.getUTCHours() >= 14) {
-                    hour = "-14";
-                } else {
-                    hour = "-0";
-                }
-                $http({
-                    method: "GET",
-                    url: url + hour + ".txt"
-                }).then(function(response) {
-                    //console.log(response);
-                    var t = response.data;
-                    var e = t.indexOf("\n");
-                    var id = t.slice(0, 24);
-                    var description = t.slice(e + 1);
-                    $rootScope.getNameAndIcon(id).then(function(res) {
-                        res.descText = description;
-                        resolve(res);
-                    }).catch(function(err) {
-                        reject(err);
-                    });
-                }, function(response) {
-                    reject(new Error("no channels featured today"));
-                });
+                (function getContents(h) {
+                    if (h < 0) {
+                        // not found after going through all the hours
+                        reject(new Error("no channels featured today"));
+                    }
+                    //console.log("searching for", currHour);
+                    hour = "-" + h;
+                    $http({
+                        method: "GET",
+                        url: url + hour + ".txt"
+                    }).then(function(response) {
+                        // found it
+                        //console.log("found", h);
+                        resolve(response);
+                    }, function(response) {
+                        // not found
+                        getContents(h - 1);
+                    })
+                })(currHour);
             });
         });
     }
