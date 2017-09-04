@@ -1,6 +1,7 @@
 {
   "name": "Livecounts",
   "app_id": "61724138",
+  "type": "ionic1",
   "gulpStartupTasks": [
     "sass",
     "watch"
