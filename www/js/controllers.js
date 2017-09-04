@@ -37,7 +37,19 @@ angular.module('app.controllers', [])
         $rootScope.unreadNotifs = 0;
         window.localStorage.setItem("unreadNotifs", $rootScope.unreadNotifs);
     }
-    if (window.localStorage.getItem("favs"))
+    if (window.cordova)
+    {
+        $rootScope.favs = [];
+        $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS favs (channelId text PRIMARY KEY, update integer NOT NULL)");
+        var query = "SELECT * FROM favs ORDER BY id";
+        $cordovaSQLite.execute(db, query).then(function(res) {
+            for (var i = 0; i < res.rows.length; i++)
+            {
+                $rootScope.favs.push(res.rows.item(i));
+            }
+        });
+    }
+    else if (window.localStorage.getItem("favs"))
     {
         $rootScope.favs = JSON.parse(window.localStorage.getItem("favs"));
     }
@@ -450,7 +462,16 @@ function ($scope, $stateParams, $http, $ionicPopup, $rootScope, $ionicLoading, $
         {
             channel.update = false;
             $rootScope.favs.push(channel);
-            window.localStorage.setItem("favs", angular.toJson($rootScope.favs));
+            //window.localStorage.setItem("favs", angular.toJson($rootScope.favs));
+            if (window.cordova)
+            {
+                var query = "INSERT INTO favs (channelId, update) VALUES (?, ?)";
+                $cordovaSQLite.execute(db, query, [channel.channelId, channel.update]).then(function(res) {
+                    $rootScope.showMessage("successfully saved " + channel.channelId);
+                }, function(err) {
+                    $rootScope.showMessage(err);
+                });
+            }
             message = $scope.currChannel.channelTitle + " added to favorites";
         }
         else
@@ -758,7 +779,7 @@ function ($scope, $stateParams, $rootScope, $state, $http, $ionicPopup, $ionicMo
             //{
                 $rootScope.getSubCount(fav.channelId, function(count) {
                     fav.subscriberCount = count;
-                    window.localStorage.setItem("favs", angular.toJson($rootScope.favs));
+                    //window.localStorage.setItem("favs", angular.toJson($rootScope.favs));
                 });
             //}
 		});
@@ -807,14 +828,23 @@ function ($scope, $stateParams, $rootScope, $state, $http, $ionicPopup, $ionicMo
             window.localStorage.setItem("notifs", angular.toJson($rootScope.notifs));
         }
         $rootScope.favs.splice($rootScope.favs.indexOf(fav), 1);
-        window.localStorage.setItem("favs", angular.toJson($rootScope.favs));
+        //window.localStorage.setItem("favs", angular.toJson($rootScope.favs));
+        if (window.cordova)
+        {
+            var query = "DELETE FROM favs WHERE channelId = ?";
+            $cordovaSQLite.execute(db, query, [fav.channelId]).then(function(res) {
+                $rootScope.showMessage("successfully deleted " + fav.channelId);
+            }, function(err) {
+                $rootScope.showMessage(err);
+            });
+        }
     }
 	
 	// move a favorite
 	$scope.moveFav = function(fav, fromIndex, toIndex) {
 		$rootScope.favs.splice(fromIndex, 1);
 		$rootScope.favs.splice(toIndex, 0, fav);
-        window.localStorage.setItem("favs", angular.toJson($rootScope.favs));
+        //window.localStorage.setItem("favs", angular.toJson($rootScope.favs));
 	}
     
     // register for a notification
@@ -1024,7 +1054,7 @@ function ($scope, $stateParams, $rootScope, $state, $http, $ionicPopup, $ionicMo
             // start updating
             $rootScope.getSubCount(fav.channelId, function(count) {
                 fav.subscriberCount = count;
-                window.localStorage.setItem("favs", angular.toJson($rootScope.favs));
+                //window.localStorage.setItem("favs", angular.toJson($rootScope.favs));
             });
             $scope.updaters[fav.channelId] = $interval(function() {
                 if ($state.current.name == "tabsController.favorites")
@@ -1041,7 +1071,16 @@ function ($scope, $stateParams, $rootScope, $state, $http, $ionicPopup, $ionicMo
             $interval.cancel($scope.updaters[fav.channelId]);
             $scope.updaters[fav.channelId] = undefined;
         }
-        window.localStorage.setItem("favs", angular.toJson($rootScope.favs));
+        //window.localStorage.setItem("favs", angular.toJson($rootScope.favs));
+        if (window.cordova)
+        {
+            var query = "UPDATE favs SET update = ? WHERE channelId = ?";
+            $cordovaSQLite.execute(db, query, [fav.update ? 1 : 0, fav.channelId]).then(function(res) {
+                $rootScope.showMessage("successfully updated " + fav.channelId);
+            }, function(err) {
+                $rootScope.showMessage(err);
+            });
+        }
     }
 }])
    

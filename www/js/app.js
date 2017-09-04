@@ -6,6 +6,8 @@
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
 
+var db = null;
+
 angular.module('app', ['ionic', 'ionic.service.core', 'app.controllers', 'app.routes', 'app.directives','app.services', 'ui.odometer', 'ngCordova'])
 
 .config([
@@ -17,7 +19,7 @@ angular.module('app', ['ionic', 'ionic.service.core', 'app.controllers', 'app.ro
     }
 ])
 
-.run(function($ionicPlatform, $rootScope, $cordovaAppAvailability, $cordovaPushV5) {
+.run(function($ionicPlatform, $rootScope, $cordovaAppAvailability, $cordovaPushV5, $cordovaSQLite) {
   $ionicPlatform.ready(function() {
     window.handleOpenURL = function(url)
     {
@@ -140,6 +142,12 @@ angular.module('app', ['ionic', 'ionic.service.core', 'app.controllers', 'app.ro
         alert('Error message: '+msg+'\nURL: '+url+'\nLine Number: '+linenumber);
         return true;
     }*/
+    
+    // open database
+    if (window.cordova)
+    {
+        db = $cordovaSQLite.openDB("app.db");
+    }
   });
 })
 
